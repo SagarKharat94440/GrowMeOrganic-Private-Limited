@@ -1,73 +1,83 @@
-# React + TypeScript + Vite
+# React Artwork Data Table
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application featuring a data table that displays artwork data from the Art Institute of Chicago API with server-side pagination and persistent row selection.
 
-Currently, two official plugins are available:
+## 🚀 Live Demo
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+[View Deployed Application](https://taupe-twilight-6bcc12.netlify.app/) 
 
-## React Compiler
+## ✨ Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **Data Table**: Displays artwork data using PrimeReact DataTable component
+- **Server-Side Pagination**: Fetches data per page from the API (not all at once)
+- **Row Selection**: Checkboxes for selecting/deselecting individual rows
+- **Select All**: Select/deselect all rows on the current page
+- **Custom Selection Panel**: Overlay panel to select N number of rows via input field
+- **Persistent Selection**: Selected rows persist when navigating between pages
 
-## Expanding the ESLint configuration
+## 📋 Data Fields Displayed
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Field | Description |
+|-------|-------------|
+| `title` | Artwork title |
+| `place_of_origin` | Origin location |
+| `artist_display` | Artist information |
+| `inscriptions` | Artwork inscriptions |
+| `date_start` | Start date |
+| `date_end` | End date |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 🛠️ Tech Stack
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- **React** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **PrimeReact** - UI component library (DataTable)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 📦 Installation
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/SagarKharat94440/GrowMeOrganic-Private-Limited.git
+   cd React-assignment
+   ```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+
+## 🔌 API Reference
+
+**Endpoint**: `https://api.artic.edu/api/v1/artworks?page={pageNumber}`
+
+The API returns paginated artwork data from the Art Institute of Chicago.
+
+## 💡 Implementation Notes
+
+### Persistent Selection Strategy
+
+- Selections are tracked using row IDs, not entire row objects
+- Only current page data is stored in state
+- Selection state persists across page navigation without pre-fetching other pages
+- When returning to a previously visited page, selections are restored from the tracked IDs
+
+### Key Principles
+
+- ✅ Only stores current page data
+- ✅ Always fetches from API when changing pages
+- ✅ Tracks selections separately using row IDs
+- ❌ Does NOT pre-fetch multiple pages for bulk selection
+- ❌ Does NOT store row objects from other pages
+
+
+## 📄 License
+
+This project is created as part of a React internship assignment.
